@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/arc_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:gravity="bottom"
+    android:orientation="horizontal">
+
+    <com.sa90.materialarcmenu.ArcMenu
+        android:id="@+id/arcMenu"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:menu_scr="@drawable/share_48"
+        app:menu_open="arc_right"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_document"
+            android:layout_width="wrap_content"
+            android:src="@drawable/document_48"
+            android:layout_height="wrap_content" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_mic"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_mic_black_48dp"
+            android:layout_height="wrap_content" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_cam"
+            android:layout_width="wrap_content"
+            android:src="@drawable/camera_48"
+            android:layout_height="wrap_content" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_gallery"
+            android:layout_width="wrap_content"
+            android:src="@drawable/picture_48"
+            android:layout_height="wrap_content" />
+
+    </com.sa90.materialarcmenu.ArcMenu>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
@@ -7,17 +54,21 @@
     android:orientation="horizontal">
 
     <EditText
+        android:paddingLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textColorHint="#CFD8DC"
         android:textColor="#CFD8DC"
-        android:hint="Write a message" />
+        android:hint="Write a message"
+        />
 
     <ImageView
+        android:id="@+id/send_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="5"
         android:padding="4dp"
         android:src="@android:drawable/ic_menu_send" />
+</LinearLayout>
 </LinearLayout>
