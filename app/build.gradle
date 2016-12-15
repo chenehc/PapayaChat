@@ -31,6 +31,5 @@ dependencies {
     compile 'com.android.support:support-v4:25.0.1'
     compile 'com.sa90.materialarcmenu:library:1.5.0'
     compile 'com.github.aakira:expandable-layout:1.4.2@aar'
-    compile 'com.github.grennis:ExpandableRecyclerView:0.9.3'
     testCompile 'junit:junit:4.12'
 }
