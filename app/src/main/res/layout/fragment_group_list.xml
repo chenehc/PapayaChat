@@ -1,48 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="68dp" >
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/card_view"
+        android:id="@+id/group_card_view"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_margin="5dp"
-        android:layout_height="100dp"
+        android:layout_margin="3dp"
+        android:layout_height="wrap_content"
         card_view:cardCornerRadius="4dp"
         card_view:elevation="14dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/card_layout">
+
+            <TextView
+                android:id="@+id/group_name"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:textSize="20dp"
+                android:layout_marginLeft="5dp"
+                android:text="Group">
+            </TextView>
 
             <ImageView
-                android:id="@+id/iv_image"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:src="@drawable/abc_btn_radio_material">
+                android:id="@+id/group_contact_1_image"
+                android:layout_height="52dp"
+                android:layout_width="52dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/avatar_circle_blue_48dp"
+                android:visibility="invisible">
             </ImageView>
 
-            <TextView
-                android:id="@+id/tv_text"
+            <ImageView
+                android:id="@+id/group_contact_2_image"
+                android:layout_height="52dp"
+                android:layout_width="52dp"
+                android:layout_marginTop="30dp"
+                android:layout_alignLeft="@id/group_contact_1_image"
+                android:layout_marginLeft="100dp"
+                android:src="@drawable/avatar_circle_blue_48dp"
+                android:visibility="invisible">
+            </ImageView>
 
-                android:layout_toRightOf ="@+id/iv_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center" >
-            </TextView>
+            <ImageView
+                android:id="@+id/group_contact_3_image"
+                android:layout_height="52dp"
+                android:layout_width="52dp"
+                android:layout_marginTop="30dp"
+                android:layout_alignLeft="@id/group_contact_2_image"
+                android:layout_marginLeft="100dp"
+                android:src="@drawable/avatar_circle_blue_48dp"
+                android:visibility="invisible">
+            </ImageView>
 
-            <TextView
-                android:id="@+id/tv_blah"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/expandableButton1"
+                android:layout_height="52dp"
+                android:layout_width="52dp"
+                android:layout_marginTop="30dp"
+                android:drawableTop="@drawable/ic_arrow_drop_down_circle_black_48dp"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true">
+            </Button>
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayout1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="blah blah blah......"
-                android:layout_below="@+id/tv_text"
-                android:layout_toRightOf="@+id/iv_image"
-                android:layout_toEndOf="@+id/iv_image">
-            </TextView>
+                android:layout_below="@+id/expandableButton1"
+                android:padding="14dp"
+                app:ael_duration="500"
+                app:ael_expanded="false"
+                app:ael_interpolator="accelerate"
+                app:ael_orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/group_contact_4_image"
+                    android:layout_height="52dp"
+                    android:layout_width="52dp"
+                    android:src="@drawable/avatar_circle_blue_48dp"
+                    android:layout_marginLeft="5dp"
+                    android:visibility="gone">
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/group_contact_5_image"
+                    android:layout_height="52dp"
+                    android:layout_width="52dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_toRightOf="@id/group_contact_4_image"
+                    android:src="@drawable/avatar_circle_blue_48dp"
+                    android:visibility="gone">
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/group_contact_6_image"
+                    android:layout_height="52dp"
+                    android:layout_width="52dp"
+                    android:layout_marginLeft="205dp"
+                    android:src="@drawable/avatar_circle_blue_48dp"
+                    android:visibility="gone">
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/group_contact_7_image"
+                    android:layout_height="52dp"
+                    android:layout_width="52dp"
+                    android:layout_marginTop="70dp"
+                    android:src="@drawable/avatar_circle_blue_48dp"
+                    android:layout_marginLeft="5dp"
+                    android:visibility="gone">
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/group_contact_8_image"
+                    android:layout_height="52dp"
+                    android:layout_width="52dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="70dp"
+                    android:layout_toRightOf="@id/group_contact_4_image"
+                    android:src="@drawable/avatar_circle_blue_48dp"
+                    android:visibility="gone">
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/group_contact_9_image"
+                    android:layout_height="52dp"
+                    android:layout_width="52dp"
+                    android:layout_marginLeft="205dp"
+                    android:layout_marginTop="70dp"
+                    android:src="@drawable/avatar_circle_blue_48dp"
+                    android:visibility="gone">
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/add_to_group"
+                    android:layout_height="52dp"
+                    android:layout_width="52dp"
+                    android:layout_marginLeft="315dp"
+                    android:layout_marginTop="120dp"
+                    android:src="@drawable/ic_add_circle_outline_black_48dp"
+                    >
+                    </ImageView>
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
+
+
 
 </RelativeLayout>
