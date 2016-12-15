@@ -1,35 +1,50 @@
 package com.example.papaya.papayachat;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.sa90.materialarcmenu.ArcMenu;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ChatActivity extends AppCompatActivity{
+public class GroupChatActivity extends AppCompatActivity{
     private FloatingActionButton fabGallery, fabCamera, fabMic, fabDoc;
     private int leftIndex, rightIndex, position;
+    private Intent startingIntent;
+    private Group group;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        startingIntent = getIntent();
+
         //Contact name
         String s = getIntent().getStringExtra("CONTACT_NAME");
+        Log.i("name", s);
         setTitle(s);
+
+        //The group that the contact belongs to
+        group = (Group)getIntent().getSerializableExtra("GROUP");
+        int maxGroupPosition = group.getSize() - 1;
+        Log.i("group size", "group size is " + group.getSize());
+
+        //Contact position in list
+        position = getIntent().getExtras().getInt("POSITION");
+        leftIndex = (position - 1 < 0) ? maxGroupPosition - (0 - position) % maxGroupPosition : (position - 1) % maxGroupPosition;
+        rightIndex = (position + 1) % (maxGroupPosition + 1);
+        Log.i("position", "position is" + position);
+        Log.i("positionleft", "left is" + leftIndex);
+        Log.i("positionRight", "right is" + rightIndex);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -94,6 +109,34 @@ public class ChatActivity extends AppCompatActivity{
             }
         }
     });
+
+        ScrollView sv = (ScrollView) findViewById(R.id.scroll_view);
+        sv.setOnTouchListener(new OnSwipeTouchListener(GroupChatActivity.this) {
+            public void onSwipeRight() {
+//                Toast.makeText(GroupChatActivity.this, "right", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent (GroupChatActivity.this, GroupChatActivity.class);
+                intent.putExtra("CONTACT_NAME", group.getMember(leftIndex).getName());
+                intent.putExtra("POSITION", leftIndex);
+                intent.putExtra("GROUP", group);
+                finish();
+//                Bundle bndlanimation =
+//                        ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.slide_right_in,R.anim.slide_right_out).toBundle();
+                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
+            }
+            public void onSwipeLeft() {
+//                Toast.makeText(GroupChatActivity.this, "left", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent (GroupChatActivity.this, GroupChatActivity.class);
+                intent.putExtra("CONTACT_NAME", group.getMember(rightIndex).getName());
+                intent.putExtra("POSITION", rightIndex);
+                intent.putExtra("GROUP", group);
+                finish();
+                startActivity(intent);
+
+//                overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
+
+            }
+        });
     }
 
     @Override
@@ -107,4 +150,5 @@ public class ChatActivity extends AppCompatActivity{
                 return super.onOptionsItemSelected(menuItem);
         }
     }
+
 }

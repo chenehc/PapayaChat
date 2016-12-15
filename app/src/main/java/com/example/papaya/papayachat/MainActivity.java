@@ -1,8 +1,10 @@
 package com.example.papaya.papayachat;
 
+import android.content.DialogInterface;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -17,10 +19,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.EditText;
 import android.widget.TextView;
+
+import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
 public class MainActivity extends AppCompatActivity {
 
+    ContactFragment cFrag;
+    GroupFragment gFrag;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -36,10 +43,16 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+//    public void expandableButton1(View view) {
+//        expandableLayout1 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout1);
+//        expandableLayout1.toggle(); // toggle expand and collapse
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        setContentView(R.layout.test);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,46 +64,94 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addContact();
-                Snackbar.make(view, "Add Contact", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (tabLayout.getSelectedTabPosition() == 0) {
+                    // get prompts.xml view
+                    LayoutInflater li = LayoutInflater.from(MainActivity.this);
+                    View promptsView = li.inflate(R.layout.prompt, null);
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            MainActivity.this);
+
+                    // set prompts.xml to alertdialog builder
+                    alertDialogBuilder.setView(promptsView);
+
+                    final EditText userInput = (EditText) promptsView
+                            .findViewById(R.id.editTextDialogUserInput);
+
+                    // set dialog message
+                    alertDialogBuilder
+                            .setCancelable(false)
+                            .setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            // get user input
+                                            cFrag.addContact(userInput.getText().toString());
+                                        }
+                                    })
+                            .setNegativeButton("Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                    // show it
+                    alertDialog.show();
+                    Snackbar.make(view, "Add Contact", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else if (tabLayout.getSelectedTabPosition() == 1) {
+                    // get prompts.xml view
+                    LayoutInflater li = LayoutInflater.from(MainActivity.this);
+                    View promptsView = li.inflate(R.layout.prompt, null);
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            MainActivity.this);
+
+                    // set prompts.xml to alertdialog builder
+                    alertDialogBuilder.setView(promptsView);
+
+                    final EditText userInput = (EditText) promptsView
+                            .findViewById(R.id.editTextDialogUserInput);
+
+                    // set dialog message
+                    alertDialogBuilder
+                            .setCancelable(false)
+                            .setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            // get user input
+                                            gFrag.addGroup(userInput.getText().toString());
+                                        }
+                                    })
+                            .setNegativeButton("Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                    // show it
+                    alertDialog.show();
+
+                    Snackbar.make(view, "Add Group", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
 
-    }
-
-    //adds contact
-    private void addContact(){
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -109,10 +170,10 @@ public class MainActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch(position){
                 case 0:
-                    ContactFragment cFrag = new ContactFragment();
+                    cFrag = new ContactFragment();
                     return cFrag;
                 case 1:
-                    GroupFragment gFrag = new GroupFragment();
+                    gFrag = new GroupFragment();
                     return gFrag;
             }
             return null;
